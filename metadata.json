@@ -1,0 +1,6 @@
+{
+  "name": "ROYAL TOURS | Travel in Luxury, Explore in Style",
+  "description": "ROYAL TOURS bespoke itinerary builder, luxury adventure excursions, and client quotation atelier.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

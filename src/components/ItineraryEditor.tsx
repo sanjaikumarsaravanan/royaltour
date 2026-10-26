@@ -194,10 +194,10 @@ export const ItineraryEditor: React.FC<ItineraryEditorProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#f8fafc] text-slate-800">
+    <div className="fixed inset-0 z-50 flex flex-col bg-[#f8fafc] text-slate-800 overflow-hidden">
       
       {/* Top Header strictly matching Photo 5 in white & grey glassy aesthetic */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/90 px-6 py-3.5 shadow-xs">
+      <header className="shrink-0 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-6 py-3.5 shadow-xs z-20">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           
           {/* Brand & Code Preview */}
@@ -272,8 +272,9 @@ export const ItineraryEditor: React.FC<ItineraryEditorProps> = ({
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="max-w-5xl mx-auto px-6 py-8 pb-28">
+      {/* Scrollable Main Viewport */}
+      <div className="flex-1 overflow-y-auto min-h-0 bg-[#f8fafc]">
+        <main className="max-w-5xl mx-auto px-6 py-8 pb-8">
         
         {/* STEP 1: SUMMARY matching Photo 5 */}
         {currentStep === 1 && (
@@ -712,19 +713,6 @@ export const ItineraryEditor: React.FC<ItineraryEditorProps> = ({
               </div>
             </div>
 
-            {/* Step 1 Footer buttons */}
-            <div className="flex items-center justify-between pt-4">
-              <div />
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setCurrentStep(2)}
-                  className="px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-b from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 shadow-md shadow-slate-900/15 transition-all"
-                >
-                  Next
-                </button>
-              </div>
-            </div>
 
           </div>
         )}
@@ -976,23 +964,6 @@ export const ItineraryEditor: React.FC<ItineraryEditorProps> = ({
               <span>Add day</span>
             </button>
 
-            {/* Stepper Navigation */}
-            <div className="flex items-center justify-between pt-4">
-              <button
-                type="button"
-                onClick={() => setCurrentStep(1)}
-                className="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 transition-colors shadow-xs"
-              >
-                Previous
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrentStep(3)}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-b from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 shadow-md shadow-slate-900/15 transition-all"
-              >
-                Next
-              </button>
-            </div>
 
           </div>
         )}
@@ -1085,23 +1056,6 @@ export const ItineraryEditor: React.FC<ItineraryEditorProps> = ({
 
             </div>
 
-            {/* Stepper Navigation */}
-            <div className="flex items-center justify-between pt-4">
-              <button
-                type="button"
-                onClick={() => setCurrentStep(2)}
-                className="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 transition-colors shadow-xs"
-              >
-                Previous
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrentStep(4)}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-b from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 shadow-md shadow-slate-900/15 transition-all"
-              >
-                Next: Policies
-              </button>
-            </div>
 
           </div>
         )}
@@ -1155,68 +1109,96 @@ export const ItineraryEditor: React.FC<ItineraryEditorProps> = ({
               </div>
             </div>
 
-            {/* Bottom Actions */}
-            <div className="flex items-center justify-between pt-4">
+            {/* Step 4 Secondary Export Actions */}
+            <div className="flex items-center justify-end gap-2.5 pt-2">
               <button
                 type="button"
-                onClick={() => setCurrentStep(3)}
-                className="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 transition-colors shadow-xs"
+                onClick={() => {
+                  onSave(data);
+                  if (onDownloadPDF) {
+                    onDownloadPDF(data);
+                  } else {
+                    handleSaveAndPreview();
+                  }
+                }}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                Previous
+                <FileDown className="w-3.5 h-3.5 text-slate-700" />
+                <span>Download Quotation (PDF)</span>
               </button>
 
-              <div className="flex items-center gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSave(data);
-                    if (onDownloadPDF) {
-                      onDownloadPDF(data);
-                    } else {
-                      handleSaveAndPreview();
-                    }
-                  }}
-                  className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-300/80 shadow-xs transition-colors flex items-center gap-1.5"
-                >
-                  <FileDown className="w-3.5 h-3.5 text-slate-700" />
-                  <span>Download Quotation (PDF)</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleSaveAndPreview}
-                  className="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 shadow-xs transition-colors flex items-center gap-1.5"
-                >
-                  <Eye className="w-3.5 h-3.5 text-slate-700" />
-                  <span>Preview Quotation</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleSaveAndClose}
-                  className="px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-b from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 transition-all shadow-md shadow-slate-900/15"
-                >
-                  Confirm & Save
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={handleSaveAndPreview}
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <Eye className="w-3.5 h-3.5 text-slate-700" />
+                <span>Preview Quotation</span>
+              </button>
             </div>
 
           </div>
         )}
 
-      </main>
-
-      {/* Floating Save button centered at bottom so it never covers or hides the Next/Previous buttons */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
-        <button
-          type="button"
-          onClick={handleSaveAndClose}
-          className="px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-slate-950/95 hover:bg-slate-900 transition-all shadow-2xl shadow-slate-900/40 flex items-center gap-2 border border-slate-700/80 backdrop-blur-md active:scale-95 hover:border-slate-500 whitespace-nowrap"
-        >
-          <Check className="w-4 h-4 stroke-[3] text-emerald-400" />
-          <span>Confirm & Save</span>
-        </button>
+        </main>
       </div>
+
+      {/* Permanently Fixed Footer Bar - Stays anchored to the bottom and never moves */}
+      <footer className="shrink-0 bg-white border-t border-slate-200 py-3.5 px-6 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] z-30">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
+          {/* Left: Previous Button */}
+          <div className="w-28 flex justify-start">
+            {currentStep > 1 && (
+              <button
+                type="button"
+                onClick={() => setCurrentStep((prev) => (prev > 1 ? ((prev - 1) as any) : 1))}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Previous</span>
+              </button>
+            )}
+          </div>
+
+          {/* Center: Confirm & Save button */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleSaveAndClose}
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-slate-900 hover:bg-slate-800 shadow-md active:scale-95 transition-all cursor-pointer"
+            >
+              <Check className="w-4 h-4 stroke-[3] text-emerald-400" />
+              <span>Confirm & Save</span>
+            </button>
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider hidden sm:inline-block ml-1">
+              (Step {currentStep} of 4)
+            </span>
+          </div>
+
+          {/* Right: Next or Done */}
+          <div className="w-28 flex justify-end">
+            {currentStep < 4 ? (
+              <button
+                type="button"
+                onClick={() => setCurrentStep((prev) => (prev < 4 ? ((prev + 1) as any) : 4))}
+                className="flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-slate-900 hover:bg-slate-800 transition-all shadow-md active:scale-95 cursor-pointer"
+              >
+                <span>Next</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleSaveAndClose}
+                className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 transition-all shadow-md active:scale-95 cursor-pointer"
+              >
+                <span>Done</span>
+                <Check className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      </footer>
 
     </div>
   );

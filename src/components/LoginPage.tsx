@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { User } from 'firebase/auth';
+import { signInWithGoogleDrive } from '../services/googleDriveStorage';
 import {
-  signInWithGoogleDrive,
-  AUTHORIZED_EMAIL,
-  AUTHORIZED_EMAILS,
-} from '../services/googleDriveStorage';
-import { ShieldCheck, AlertCircle, Lock, Cloud, KeyRound } from 'lucide-react';
+  ShieldCheck,
+  AlertCircle,
+  Cloud,
+  KeyRound,
+} from 'lucide-react';
 import { RoyalToursLogo } from './RoyalToursLogo';
 
 interface LoginPageProps {
@@ -16,6 +17,7 @@ interface LoginPageProps {
 
 export const MASTER_PASSWORD = 'ROYALMASTER2026';
 export const MASTER_PASSWORD_ALT = '8248886319';
+export const VERCEL_DOMAIN = 'royaltour-mu.vercel.app';
 
 export const LoginPage: React.FC<LoginPageProps> = ({
   onLoginSuccess,
@@ -44,6 +46,18 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         setIsSigningIn(false);
         return;
       }
+
+      if (
+        err?.code === 'auth/unauthorized-domain' ||
+        err?.message?.includes('unauthorized-domain')
+      ) {
+        setErrorMsg(
+          'Domain not authorized for Google Sign-in. Please ensure this domain is allowlisted in Firebase Console / Google Cloud.'
+        );
+        setIsSigningIn(false);
+        return;
+      }
+
       console.error('Login error:', err);
       setErrorMsg(
         err?.message ||
@@ -88,25 +102,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           </div>
         </div>
 
-        {/* Account Restriction Notice */}
-        <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-xs space-y-2">
-          <div className="flex items-center gap-2 font-bold text-slate-900">
-            <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
-            <span>Authorized Administrator Access</span>
-          </div>
-          <p className="text-slate-600 text-[11px] leading-relaxed">
-            Authorized administrator Google accounts for Royal Tours cloud sync:
-          </p>
-          <div className="space-y-1">
-            {AUTHORIZED_EMAILS.map((email) => (
-              <div
-                key={email}
-                className="bg-white border border-slate-200 px-3 py-1 rounded-lg font-mono font-semibold text-slate-900 text-[11px] text-center"
-              >
-                {email}
-              </div>
-            ))}
-          </div>
+        {/* Discreet Security Badge - Clean and without displaying email addresses */}
+        <div className="flex items-center justify-center gap-2 py-2 px-3 bg-slate-50 border border-slate-200/80 rounded-xl text-slate-600">
+          <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+          <span className="font-semibold text-[11px] tracking-wide uppercase text-slate-700">
+            Official Administrator Access
+          </span>
         </div>
 
         {/* Error / Unauthorized Warning Banner */}
@@ -170,25 +171,25 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           </div>
         </div>
 
-        {/* Emergency Offline Access Option */}
-        <div className="pt-4 border-t border-slate-100 text-center">
+        {/* Emergency Passcode */}
+        <div className="pt-4 border-t border-slate-100 flex flex-col items-center gap-2 text-center">
           {!showEmergencyPasscode ? (
             <button
               type="button"
               onClick={() => setShowEmergencyPasscode(true)}
-              className="text-[11px] text-slate-400 hover:text-slate-600 transition-colors flex items-center justify-center gap-1 mx-auto"
+              className="text-[11px] text-slate-400 hover:text-slate-600 transition-colors flex items-center justify-center gap-1 mx-auto cursor-pointer"
             >
               <KeyRound className="w-3 h-3" />
               <span>Offline emergency passcode</span>
             </button>
           ) : (
-            <form onSubmit={handleEmergencyPasscodeSubmit} className="space-y-2 text-left">
+            <form onSubmit={handleEmergencyPasscodeSubmit} className="w-full space-y-2 text-left">
               <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
                 <span>Emergency Offline Passcode</span>
                 <button
                   type="button"
                   onClick={() => setShowEmergencyPasscode(false)}
-                  className="text-slate-400 hover:text-slate-600"
+                  className="text-slate-400 hover:text-slate-600 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -203,7 +204,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 />
                 <button
                   type="submit"
-                  className="px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider"
+                  className="px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer"
                 >
                   Enter
                 </button>

@@ -441,9 +441,9 @@ export const CreateItineraryWizard: React.FC<CreateItineraryWizardProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex flex-col font-sans overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 flex flex-col font-sans overflow-hidden">
       {/* Wizard Header Bar */}
-      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 sm:px-8 py-3.5 shadow-xs flex items-center justify-between gap-4">
+      <header className="shrink-0 bg-white border-b border-slate-200 px-4 sm:px-8 py-3.5 shadow-xs flex items-center justify-between gap-4 z-20">
         <div className="flex items-center gap-3">
           <div
             className="w-8 h-8 rounded-xl text-white flex items-center justify-center font-bold text-xs"
@@ -490,7 +490,7 @@ export const CreateItineraryWizard: React.FC<CreateItineraryWizardProps> = ({
       </header>
 
       {/* 5-Step Progress Stepper */}
-      <div className="bg-[#f8fafc] border-b border-slate-200 px-4 sm:px-8 py-2.5">
+      <div className="shrink-0 bg-[#f8fafc] border-b border-slate-200 px-4 sm:px-8 py-2.5 z-10">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-2">
           {[
             { step: 1, label: 'Client & Type' },
@@ -537,8 +537,9 @@ export const CreateItineraryWizard: React.FC<CreateItineraryWizardProps> = ({
         </div>
       </div>
 
-      {/* Main Wizard Content Area */}
-      <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-8 space-y-6 pb-28">
+      {/* Dedicated Scrollable Content Viewport */}
+      <div className="flex-1 overflow-y-auto min-h-0 bg-[#f8fafc]/50">
+        <main className="max-w-4xl w-full mx-auto p-4 sm:p-8 space-y-6 pb-8">
         {/* Validation Alert */}
         {validationError && (
           <div className="p-3.5 bg-red-50 border border-red-200 rounded-2xl text-xs text-red-800 flex items-center gap-2 animate-in fade-in">
@@ -1230,10 +1231,11 @@ export const CreateItineraryWizard: React.FC<CreateItineraryWizardProps> = ({
             />
           </div>
         )}
-      </main>
+        </main>
+      </div>
 
-      {/* Centered Fixed Wizard Footer Bar */}
-      <footer className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 py-3 px-4 sm:px-8 shadow-lg">
+      {/* Truly Fixed Wizard Footer Bar - Permanently anchored to bottom of viewport */}
+      <footer className="shrink-0 bg-white border-t border-slate-200 py-3.5 px-4 sm:px-8 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] z-30">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
           {/* Left: Back Button */}
           <div className="w-24 flex justify-start">

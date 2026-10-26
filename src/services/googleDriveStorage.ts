@@ -98,7 +98,7 @@ export const signInWithGoogleDrive = async (): Promise<{
       cachedAccessToken = null;
       driveDatabaseFileId = null;
       throw new Error(
-        `Access Restricted: Only ${AUTHORIZED_EMAILS.join(' or ')} is authorized to access Royal Tours. You signed in as "${user.email}". Please sign in with the official Royal Tours Google account.`
+        `Access Restricted: This Google account (${user.email}) is not authorized to access Royal Tours. Please sign in with the official Royal Tours administrator account.`
       );
     }
 

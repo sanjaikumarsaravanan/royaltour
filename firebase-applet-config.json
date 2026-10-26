@@ -1,11 +1,11 @@
 {
-  "projectId": "cag-auto-garage",
-  "appId": "1:558308474622:web:8e2d011b6d42cb2986afaf",
-  "apiKey": "AIzaSyAIRhH4j6E4SpUC9Bp3WHXTVoJmVQ5Oscc",
-  "authDomain": "cag-auto-garage.firebaseapp.com",
-  "storageBucket": "cag-auto-garage.firebasestorage.app",
-  "messagingSenderId": "558308474622",
-  "measurementId": "",
-  "oAuthClientId": "558308474622-9d05carmmsbnc9ba05ukdtbkrtjb42a3.apps.googleusercontent.com",
+  "projectId": "royaltours-ea173",
+  "appId": "1:85883966142:web:0ce72905e65e72b12504ef",
+  "apiKey": "AIzaSyBt8SIJStXEMujvYDUJeCaoClnH50ktuUQ",
+  "authDomain": "royaltours-ea173.firebaseapp.com",
+  "storageBucket": "royaltours-ea173.firebasestorage.app",
+  "messagingSenderId": "85883966142",
+  "measurementId": "G-JM1V4ZGPLD",
+  "oAuthClientId": "",
   "recaptchaSiteKey": ""
 }

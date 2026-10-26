@@ -24,19 +24,19 @@ View your app in AI Studio: https://ai.studio/apps/d71a08e6-c0a5-4a96-a0d8-56dcb
 When deploying to Vercel, Google and Firebase Authentication require the custom domain to be authorized in your project:
 
 ### Step 1: Add Authorized Domain in Firebase Console
-1. Open [Firebase Console Authentication Settings](https://console.firebase.google.com/project/cag-auto-garage/authentication/settings)
+1. Open [Firebase Console Authentication Settings](https://console.firebase.google.com/project/royaltours-ea173/authentication/settings)
 2. Scroll to **"Authorized domains"**
 3. Click **"Add domain"**
 4. Enter: `royaltour-mu.vercel.app`
 5. Click **Add**
 
 ### Step 2: Add Origin in Google Cloud Console
-1. Open [Google Cloud Credentials](https://console.cloud.google.com/apis/credentials?project=cag-auto-garage)
-2. Under **OAuth 2.0 Client IDs**, click your Web client:
-   - Client ID: `558308474622-9d05carmmsbnc9ba05ukdtbkrtjb42a3.apps.googleusercontent.com`
+1. Open [Google Cloud Credentials](https://console.cloud.google.com/apis/credentials?project=royaltours-ea173)
+2. Under **OAuth 2.0 Client IDs**, click your Web client.
 3. Under **Authorized JavaScript origins**, click **+ ADD URI** and add:
    - `https://royaltour-mu.vercel.app`
 4. Under **Authorized redirect URIs**, verify:
-   - `https://cag-auto-garage.firebaseapp.com/__/auth/handler`
+   - `https://royaltours-ea173.firebaseapp.com/__/auth/handler`
 5. Click **Save**
+
 

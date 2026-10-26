@@ -13,7 +13,6 @@ export { auth };
 
 export const AUTHORIZED_EMAILS = [
   'royaltoursofficial@gmail.com',
-  'sbsanjaikumar02@gmail.com',
 ];
 
 export const AUTHORIZED_EMAIL = AUTHORIZED_EMAILS[0];
